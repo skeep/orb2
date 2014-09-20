@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Orb 2</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div ng-app="orb" ng-controller="appCtrl">
+    <input type="file" nwdirectory id="folder"/>
+
+    <dnd></dnd>
+
+    <ul>
+        <li ng-repeat="screen in screens">
+            <img ng-src="{{ imagePath + screen.name }}" alt="" class="screen"/>
+            {{ screen.name }}
+            <button ng-click="removeScreen(screen)">delete</button>
+        </li>
+    </ul>
+
+</div>
+
+<script src="../bower_components/angular/angular.min.js"></script>
+<script src="../bower_components/angular-route/angular-route.min.js"></script>
+
+<script src="app.js"></script>
+<script src="controller.js"></script>
+<script src="screen.js"></script>
+<script src="dnd.js"></script>
+<script src="folder.js"></script>
+
+
+</body>
+</html>
