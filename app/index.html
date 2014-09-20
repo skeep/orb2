@@ -7,7 +7,9 @@
 </head>
 <body>
 <div ng-app="orb" ng-controller="appCtrl">
-    <input type="file" nwdirectory id="folder"/>
+
+    <open-folder data-button-name="New Project" data-role="new"></open-folder>
+    <open-folder data-button-name="Open Project" data-role="open"></open-folder>
 
     <dnd></dnd>
 
@@ -29,6 +31,7 @@
 <script src="screen.js"></script>
 <script src="dnd.js"></script>
 <script src="folder.js"></script>
+<script src="project.js"></script>
 
 
 </body>
