@@ -14,15 +14,18 @@ angular.module('orb').directive('openFolder', function (Project) {
     folder.addEventListener('change', function (evt) {
       var folderPath = this.value + '/';
       if (scope.role === 'new') {
-        Project.create(folderPath);
+        if (Project.create(folderPath)) {
+          scope.$emit('Project:created');
+        }
+
       } else if (scope.role === 'open') {
-        Project.open(folderPath);
+        if (Project.open(folderPath)) {
+          scope.$emit('Project:opened');
+        }
       } else {
         console.log('Invalid button role');
       }
     }, false);
-
-
   }
 
   return {

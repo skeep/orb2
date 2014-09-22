@@ -1,10 +1,7 @@
-angular.module('orb').service('Screen', function () {
+angular.module('orb').service('Screen', function (Project) {
 
   var fs = require('fs'),
     _ = require('lodash');
-
-  var _basePath = localStorage.folderPath;
-  var screensPath = _basePath + 'resources/screens/';
 
   var screenList = {};
 
@@ -25,18 +22,18 @@ angular.module('orb').service('Screen', function () {
         }
         screenList[UID] = screen;
       }
-      fs.createReadStream(file.path).pipe(fs.createWriteStream(screensPath + file.name));
+      fs.createReadStream(file.path).pipe(fs.createWriteStream(Project.info.folderPath + Project.info.screensFolder + file.name));
     });
     saveToLocalStorage();
     console.table(screenList);
   }
 
   function saveToLocalStorage() {
-    localStorage.screens = JSON.stringify(screenList);
+    localStorage.Screens = JSON.stringify(screenList);
   }
 
   function getScreensFileList() {
-    return fs.readdirSync(screensPath);
+    return fs.readdirSync(Project.info.folderPath + Project.info.screensFolder);
   }
 
   function add(files) {
@@ -59,8 +56,8 @@ angular.module('orb').service('Screen', function () {
   }
 
   function list() {
-    if (_.isEmpty(screenList) && typeof localStorage.screens !== 'undefined') {
-      screenList = JSON.parse(localStorage.screens);
+    if (_.isEmpty(screenList) && typeof localStorage.Screens !== 'undefined') {
+      screenList = JSON.parse(localStorage.Screens);
     }
     var screens = _.map(screenList, function (screen) {
       return screen;
@@ -79,6 +76,9 @@ angular.module('orb').service('Screen', function () {
   return {
     add: add,
     remove: remove,
-    list: list
+    list: list,
+    getAll: function () {
+      return screenList;
+    }
   }
 });
