@@ -2,7 +2,7 @@
  * Created by Suman on 18/09/14.
  */
 
-angular.module('orb').directive('openFolder', function (Project) {
+angular.module('orb').directive('openFolder', function (Project, Screen) {
 
   function postLink(scope, element) {
     scope.openFileBrowser = function () {
@@ -20,6 +20,7 @@ angular.module('orb').directive('openFolder', function (Project) {
 
       } else if (scope.role === 'open') {
         if (Project.open(folderPath)) {
+          Screen.updateList(JSON.parse(localStorage.Screens));
           scope.$emit('Project:opened');
         }
       } else {

@@ -1,21 +1,32 @@
 angular.module('orb').controller('appCtrl', function ($scope, Screen, Project) {
 
-  function updateScreens(){
-    $scope.screens = Screen.list();
-    $scope.imagePath = Project.info.folderPath + Project.info.screensFolder;
-    $scope.$apply();
+  function updateScreens(doApply) {
+    doApply = typeof doApply === 'undefined' ? true : doApply;
+    if (!_.isUndefined(localStorage.Project) && !_.isUndefined(localStorage.Screens)) {
+      $scope.screens = Screen.list();
+      $scope.imagePath = Project.info().folderPath + Project.info().screensFolder;
+      if (doApply) {
+        $scope.$apply();
+      }
+    }
   }
 
   $scope.screens = Screen.list();
-  $scope.imagePath = Project.info.folderPath + Project.info.screensFolder;
+  $scope.imagePath = Project.info().folderPath + Project.info().screensFolder;
+
+  console.log($scope.screens, $scope.imagePath);
+
   $scope.removeScreen = function (screen) {
     Screen.remove(screen);
-    updateScreens();
+    updateScreens(false);
   };
   $scope.$on('Image:dropped', function () {
     updateScreens();
   });
   $scope.$on('Project:opened', function () {
+    updateScreens();
+  });
+  $scope.$on('Project:created', function () {
     updateScreens();
   });
   $scope.newProject = function () {
@@ -24,10 +35,10 @@ angular.module('orb').controller('appCtrl', function ($scope, Screen, Project) {
   $scope.openProject = function () {
     document.getElementById('open').click();
   };
-  $scope.saveProject = function(){
+  $scope.saveProject = function () {
     Project.save();
   }
-  $scope.closeProject = function(){
+  $scope.closeProject = function () {
     Project.close();
     updateScreens();
   }

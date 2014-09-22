@@ -1,7 +1,6 @@
 angular.module('orb').service('Project', function () {
 
-  var fs = require('fs'),
-    _ = require('lodash');
+  var fs = require('fs');
 
   var Project = {
     name: 'My awesome project',
@@ -45,6 +44,7 @@ angular.module('orb').service('Project', function () {
       projfile = JSON.parse(projfile);
       localStorage.Project = projfile.Project;
       localStorage.Screens = projfile.Screens;
+      console.log(Project);
       return true;
     } else {
       console.log('invalid project folder');
@@ -70,7 +70,12 @@ angular.module('orb').service('Project', function () {
     create: create,
     open: open,
     close: close,
-    info: Project,
+    info: function(){
+      if (!_.isUndefined(localStorage.Project)) {
+        Project = JSON.parse(localStorage.Project);
+      }
+      return Project;
+    },
     save: save
   }
 });

@@ -1,10 +1,8 @@
 angular.module('orb').service('Screen', function (Project) {
 
-  var fs = require('fs'),
-    _ = require('lodash');
+  var fs = require('fs');
 
   var screenList = {};
-
 
   function genUID() {
     return ("0000" + (Math.random() * Math.pow(36, 4) << 0).toString(36)).slice(-4)
@@ -15,17 +13,18 @@ angular.module('orb').service('Screen', function (Project) {
       //checking newFiles list not ensure to add only new files to object list
       if (_.contains(newFiles, file.name)) {
         console.log('creating object for ' + file.name);
+        fs.createReadStream(file.path).pipe(fs.createWriteStream(Project.info().folderPath + Project.info().screensFolder + file.name));
+        console.log("file copy success!");
         var UID = genUID();
         var screen = {
           id: UID,
           name: file.name
         }
         screenList[UID] = screen;
+        saveToLocalStorage();
+        console.table(screenList);
       }
-      fs.createReadStream(file.path).pipe(fs.createWriteStream(Project.info.folderPath + Project.info.screensFolder + file.name));
     });
-    saveToLocalStorage();
-    console.table(screenList);
   }
 
   function saveToLocalStorage() {
@@ -33,7 +32,7 @@ angular.module('orb').service('Screen', function (Project) {
   }
 
   function getScreensFileList() {
-    return fs.readdirSync(Project.info.folderPath + Project.info.screensFolder);
+    return fs.readdirSync(Project.info().folderPath + Project.info().screensFolder);
   }
 
   function add(files) {
@@ -49,9 +48,11 @@ angular.module('orb').service('Screen', function (Project) {
     if (commonFiles.length > 0) {
       if (confirm(_(commonFiles).toString() + ' already exists. Do you want replace ?')) {
         copyFiles(files, newFiles);
+        return true;
       }
     } else {
       copyFiles(files, newFiles);
+      return true;
     }
   }
 
@@ -66,8 +67,8 @@ angular.module('orb').service('Screen', function (Project) {
   }
 
   function remove(screen) {
-    console.log(screensPath + screen.name, screen.id);
-    fs.unlinkSync(screensPath + screen.name);
+    console.log(Project.info().folderPath + Project.info().screensFolder + screen.name, screen.id);
+    fs.unlinkSync(Project.info().folderPath + Project.info().screensFolder + screen.name);
     delete screenList[screen.id];
     saveToLocalStorage();
     console.table(screenList);
@@ -79,6 +80,9 @@ angular.module('orb').service('Screen', function (Project) {
     list: list,
     getAll: function () {
       return screenList;
+    },
+    updateList: function (screens) {
+      screenList = screens;
     }
   }
 });

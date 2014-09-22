@@ -30,13 +30,13 @@ angular.module('orb').directive('dnd', function (Screen) {
 
       var files = [];
 
-      _.each(e.dataTransfer.files, function(file){
+      _.each(e.dataTransfer.files, function (file) {
         files.push(file);
       });
 
-      Screen.add(files);
-
-      scope.$emit('Image:dropped');
+      if (Screen.add(files)) {
+        scope.$emit('Image:dropped');
+      }
 
       return false;
     };
