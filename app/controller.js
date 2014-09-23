@@ -14,7 +14,9 @@ angular.module('orb').controller('appCtrl', function ($scope, Screen, Project) {
   $scope.screens = Screen.list();
   $scope.imagePath = Project.info().folderPath + Project.info().screensFolder;
 
-  console.log($scope.screens, $scope.imagePath);
+  $scope.getStatus = function(){
+    return 'just-dropped';
+  };
 
   $scope.removeScreen = function (screen) {
     Screen.remove(screen);

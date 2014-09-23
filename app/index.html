@@ -17,13 +17,15 @@
             <button ng-click="saveProject()">Save</button>
             <button ng-click="closeProject()">Close</button>
         </div>
-        <dnd></dnd>
-        <div ng-repeat="screen in screens track by screen.id" class="screen">
-            <div class="image">
-                <img ng-src="{{ imagePath + screen.name }}" alt="" class="screen"/>
+        <div>
+            <dnd></dnd>
+            <div ng-repeat="screen in screens track by screen.id" class="screen" ng-class="getStatus()" draggable>
+                <div class="image">
+                    <img ng-src="{{ imagePath + screen.name }}" alt="" class="screen"/>
+                </div>
+                <span>{{ screen.name }}</span>
+                <button ng-click="removeScreen(screen)">delete</button>
             </div>
-            <span>{{ screen.name }}</span>
-            <button ng-click="removeScreen(screen)">delete</button>
         </div>
     </div>
 </div>
@@ -31,6 +33,8 @@
 <script src="../bower_components/angular/angular.min.js"></script>
 <script src="../bower_components/angular-route/angular-route.min.js"></script>
 <script src="../bower_components/lodash/dist/lodash.js"></script>
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../bower_components/jquery-ui/jquery-ui.min.js"></script>
 
 <script src="app.js"></script>
 <script src="controller.js"></script>
@@ -38,6 +42,7 @@
 <script src="dnd.js"></script>
 <script src="folder.js"></script>
 <script src="project.js"></script>
+<script src="draggable.js"></script>
 
 
 </body>
