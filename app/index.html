@@ -7,27 +7,25 @@
 </head>
 <body>
 <div ng-app="orb" ng-controller="appCtrl">
-
-    <open-folder data-button-name="New Project" data-role="new"></open-folder>
-    <open-folder data-button-name="Open Project" data-role="open"></open-folder>
-
     <div>
-
-        <button ng-click="saveProject()">Save</button>
-        <button ng-click="closeProject()">Close</button>
-
-        <dnd></dnd>
-
-        <ul>
-            <li ng-repeat="screen in screens track by screen.id">
-                <img ng-src="{{ imagePath + screen.name }}" alt="" class="screen"/>
-                {{ screen.name }}
-                <button ng-click="removeScreen(screen)">delete</button>
-            </li>
-        </ul>
-
+        <open-folder data-button-name="New Project" data-role="new"></open-folder>
+        <open-folder data-button-name="Open Project" data-role="open"></open-folder>
     </div>
 
+    <div>
+        <div>
+            <button ng-click="saveProject()">Save</button>
+            <button ng-click="closeProject()">Close</button>
+        </div>
+        <dnd></dnd>
+        <div ng-repeat="screen in screens track by screen.id" class="screen">
+            <div class="image">
+                <img ng-src="{{ imagePath + screen.name }}" alt="" class="screen"/>
+            </div>
+            <span>{{ screen.name }}</span>
+            <button ng-click="removeScreen(screen)">delete</button>
+        </div>
+    </div>
 </div>
 
 <script src="../bower_components/angular/angular.min.js"></script>
