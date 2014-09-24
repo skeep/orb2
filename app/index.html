@@ -29,6 +29,7 @@
         <dnd></dnd>
         <div ng-repeat="screen in screens track by screen.id" class="screen" ng-class="getStatus(screen.id)" draggable
              data-screen-id="screen.id" ng-style="getStyle(screen.id)">
+            <input type="radio"/>
             <div class="image">
                 <img ng-src="{{ imagePath + screen.filename }}" alt="" class="screen"/>
             </div>

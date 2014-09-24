@@ -37,7 +37,6 @@ angular.module('orb').controller('appCtrl', function ($scope, Screen, Project) {
   };
 
   $scope.changeName = function (screen) {
-    console.log(screen);
     Screen.update(screen.id, screen);
   };
 
