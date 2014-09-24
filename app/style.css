@@ -1,15 +1,27 @@
-#holder {
-    position: absolute;
+#holder, #canvas {
+    position: fixed;
     top: 50px;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0,0,0,.2);
+}
+
+#holder {
+    background: rgba(0, 0, 0, .2);
     z-index: -1000;
 }
 
-.screen.just-dropped{
+#canvas {
+    overflow: auto;
+    position: absolute;
+}
+
+.screen.just-dropped {
     float: left;
+}
+
+.screen {
+    overflow: visible;
 }
 
 .screen .image {
@@ -18,6 +30,44 @@
     border: 1px solid #444;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, .2);
     overflow: hidden;
+}
+
+.screen .name {
+    color: white;
+    padding: 5px 0;
+    display: block;
+    border-radius: 10px;
+    font-size: 86%;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
+}
+
+.screen:hover .action {
+    display: block;
+}
+
+.screen .action {
+    position: absolute;
+    top: 0;
+    left: 99px;
+    padding: 5px;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, .8);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, .3);
+    display: none;
+    width: 200px;
+    margin-left: 10px;
+}
+
+.screen .action:before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 10px 10px 0;
+    border-color: transparent rgba(0, 0, 0, 0.8) transparent transparent;
+    position: absolute;
+    top: 5px;
+    left: -10px;
 }
 
 .image img {
@@ -29,4 +79,14 @@
 
 input[type="file"] {
     display: none;
+}
+
+.screen .action input[type="text"].form-control {
+    padding: 2px;
+    height: auto;
+    border-radius: 0;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(25, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.8);
 }

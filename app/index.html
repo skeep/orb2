@@ -3,28 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Orb 2</title>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css"/>
     <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-<div ng-app="orb" ng-controller="appCtrl">
-    <div>
-        <open-folder data-button-name="New Project" data-role="new"></open-folder>
-        <open-folder data-button-name="Open Project" data-role="open"></open-folder>
-    </div>
-
-    <div>
-        <div>
-            <button ng-click="saveProject()">Save</button>
-            <button ng-click="closeProject()">Close</button>
+<div ng-app="orb" ng-controller="appCtrl" class="container-fluid">
+    <nav class="navbar navbar-inverse navbar-fixed-top" ng-if="screens.length <= 0">
+        <div class="container-fluid">
+            <open-folder data-button-name="New Project" data-role="new"></open-folder>
+            <open-folder data-button-name="Open Project" data-role="open"></open-folder>
         </div>
-        <div>
-            <dnd></dnd>
-            <div ng-repeat="screen in screens track by screen.id" class="screen" ng-class="getStatus()" draggable>
-                <div class="image">
-                    <img ng-src="{{ imagePath + screen.name }}" alt="" class="screen"/>
+    </nav>
+    <nav class="navbar navbar-inverse navbar-fixed-top" ng-if="screens.length > 0">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button ng-click="saveProject()" class="btn btn-primary btn-xs navbar-btn">Save</button>
+                    <button ng-click="closeProject()" class="btn btn-danger btn-xs navbar-btn">Close</button>
                 </div>
-                <span>{{ screen.name }}</span>
-                <button ng-click="removeScreen(screen)">delete</button>
+            </div>
+        </div>
+    </nav>
+    <div id="canvas">
+        <dnd></dnd>
+        <div ng-repeat="screen in screens track by screen.id" class="screen" ng-class="getStatus(screen.id)" draggable
+             data-screen-id="screen.id" ng-style="getStyle(screen.id)">
+            <div class="image">
+                <img ng-src="{{ imagePath + screen.filename }}" alt="" class="screen"/>
+            </div>
+            <span class="name">{{ screen.name }}</span>
+
+            <div class="action">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="screen.name" placeholder="Enter name" ng-change="changeName(screen)">
+                    </div>
+                </form>
+                <button ng-click="removeScreen(screen)" class="btn btn-xs btn-danger">delete</button>
+                <button class="btn btn-xs btn-primary">link</button>
             </div>
         </div>
     </div>

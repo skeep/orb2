@@ -18,7 +18,8 @@ angular.module('orb').service('Screen', function (Project) {
         var UID = genUID();
         var screen = {
           id: UID,
-          name: file.name
+          name: file.name.substr(0, file.name.lastIndexOf('.')) || file.name,
+          filename: file.name
         }
         screenList[UID] = screen;
         saveToLocalStorage();
@@ -56,6 +57,13 @@ angular.module('orb').service('Screen', function (Project) {
     }
   }
 
+  function update(id, detail) {
+    _.each(detail, function (val, key) {
+      screenList[id][key] = val;
+    });
+    saveToLocalStorage();
+  }
+
   function list() {
     if (_.isEmpty(screenList) && typeof localStorage.Screens !== 'undefined') {
       screenList = JSON.parse(localStorage.Screens);
@@ -74,15 +82,21 @@ angular.module('orb').service('Screen', function (Project) {
     console.table(screenList);
   }
 
+  function get(id){
+    return screenList[id];
+  }
+
   return {
     add: add,
     remove: remove,
     list: list,
+    get : get,
     getAll: function () {
       return screenList;
     },
     updateList: function (screens) {
       screenList = screens;
-    }
+    },
+    update: update
   }
 });

@@ -4,6 +4,7 @@
   "version": "2.1.0",
   "window": {
     "title": "Orb 2",
+    "icon": "app.png",
     "toolbar": true,
     "frame": true,
     "width": 1000,
