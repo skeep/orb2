@@ -48,6 +48,10 @@
     display: block;
 }
 
+.screen.accepting-link:hover .action {
+    display: none
+}
+
 .screen .action {
     position: absolute;
     top: 0;
@@ -72,7 +76,6 @@
     top: 5px;
     left: -10px;
 }
-
 
 .screen.selected .image {
     box-shadow: 0 0 0 3px rgba(255, 200, 34, 0.90);

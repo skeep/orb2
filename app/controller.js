@@ -11,6 +11,13 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
     }
   }
 
+  function update(id, screen) {
+    if (_.isUndefined(screen.linkingNow)) {
+      delete screen.linkingNow;
+    }
+    Screen.update(id, screen);
+  }
+
   $scope.screens = Screen.list();
   $scope.imagePath = Project.info().folderPath + Project.info().screensFolder;
   $scope.selectedScreen = {};
@@ -21,8 +28,18 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
 
     if (screenID === $scope.selectedScreen.id) {
       classes.push('selected');
-    } else {
+    }
+    else {
       classes.push('just-dropped');
+    }
+
+    if ($scope.selectedScreen.linkingNow) {
+      if (screenID === $scope.selectedScreen.id) {
+        classes.push('linking-now');
+      } else {
+        classes.push('accepting-link');
+      }
+
     }
 
     return classes;
@@ -48,20 +65,35 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
   };
 
   $scope.changeName = function (screen) {
-    Screen.update(screen.id, screen);
+    update(screen.id, screen);
   };
 
   $scope.selectScreen = function (screen) {
-    $scope.selectedScreen = screen;
+    if (!$scope.selectedScreen.linkingNow) { //pick to just select the screen
+      $scope.selectedScreen = screen;
+    } else {
+      //link the screen
+      if (_.isUndefined($scope.selectedScreen.target)) {
+        $scope.selectedScreen.target = [];
+        $scope.selectedScreen.target.push(screen.id);
+      } else {
+        $scope.selectedScreen.target.push(screen.id);
+      }
+      update($scope.selectedScreen.id, $scope.selectedScreen);
+    }
   };
 
-  $scope.openScreen = function(screen){
+  $scope.openScreen = function (screen) {
     $('#screenLarge').modal();
   };
 
-  $scope.$watch('selectedScreen', function (n, o) {
-    console.log(n, o);
-  });
+  $scope.initLinking = function (screen) {
+    if (_.isUndefined($scope.selectedScreen.linkingNow)) {
+      $scope.selectedScreen.linkingNow = true;
+    } else {
+      $scope.selectedScreen.linkingNow = !$scope.selectedScreen.linkingNow;
+    }
+  };
 
   $scope.$on('Image:dropped', function () {
     updateScreens();
