@@ -14,6 +14,7 @@
     overflow: auto;
     position: absolute;
     background: url("vertical_cloth.png");
+    z-index: -100;
 }
 
 .screen.just-dropped {
@@ -30,6 +31,8 @@
     border: 1px solid #444;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, .2);
     overflow: hidden;
+    border-radius: 3px;
+    box-sizing: border-box;
 }
 
 .screen .name {
@@ -68,6 +71,11 @@
     position: absolute;
     top: 5px;
     left: -10px;
+}
+
+
+.screen.selected .image {
+    box-shadow: 0 0 0 3px rgba(255, 200, 34, 0.90);
 }
 
 .image img {

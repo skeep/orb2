@@ -1,4 +1,4 @@
-angular.module('orb').controller('appCtrl', function ($scope, Screen, Project) {
+angular.module('orb').controller('appCtrl', function ($scope, $document, Screen, Project) {
 
   function updateScreens(doApply) {
     doApply = typeof doApply === 'undefined' ? true : doApply;
@@ -13,9 +13,20 @@ angular.module('orb').controller('appCtrl', function ($scope, Screen, Project) {
 
   $scope.screens = Screen.list();
   $scope.imagePath = Project.info().folderPath + Project.info().screensFolder;
+  $scope.selectedScreen = {};
 
-  $scope.getStatus = function () {
-    return 'just-dropped';
+  $scope.getClasses = function (screenID) {
+
+    var classes = [];
+
+    if (screenID === $scope.selectedScreen.id) {
+      classes.push('selected');
+    } else {
+      classes.push('just-dropped');
+    }
+
+    return classes;
+
   };
 
   $scope.getStyle = function (id) {
@@ -39,6 +50,18 @@ angular.module('orb').controller('appCtrl', function ($scope, Screen, Project) {
   $scope.changeName = function (screen) {
     Screen.update(screen.id, screen);
   };
+
+  $scope.selectScreen = function (screen) {
+    $scope.selectedScreen = screen;
+  };
+
+  $scope.openScreen = function(screen){
+    $('#screenLarge').modal();
+  };
+
+  $scope.$watch('selectedScreen', function (n, o) {
+    console.log(n, o);
+  });
 
   $scope.$on('Image:dropped', function () {
     updateScreens();

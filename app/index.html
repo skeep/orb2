@@ -27,9 +27,10 @@
     </nav>
     <div id="canvas">
         <dnd></dnd>
-        <div ng-repeat="screen in screens track by screen.id" class="screen" ng-class="getStatus(screen.id)" draggable
-             data-screen-id="screen.id" ng-style="getStyle(screen.id)">
-            <input type="radio"/>
+        <div ng-repeat="screen in screens track by screen.id" class="screen" ng-class="getClasses(screen.id)"
+             draggable
+             data-screen-id="screen.id" ng-style="getStyle(screen.id)" ng-click="selectScreen(screen)"
+             ng-dblclick="openScreen(screen)">
             <div class="image">
                 <img ng-src="{{ imagePath + screen.filename }}" alt="" class="screen"/>
             </div>
@@ -38,11 +39,27 @@
             <div class="action">
                 <form role="form">
                     <div class="form-group">
-                        <input type="text" class="form-control" ng-model="screen.name" placeholder="Enter name" ng-change="changeName(screen)">
+                        <input type="text" class="form-control" ng-model="screen.name" placeholder="Enter name"
+                               ng-change="changeName(screen)">
                     </div>
                 </form>
                 <button ng-click="removeScreen(screen)" class="btn btn-xs btn-danger">delete</button>
                 <button class="btn btn-xs btn-primary">link</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"
+         id="screenLarge">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{{ selectedScreen.name }}</h4>
+                </div>
+                <div class="modal-boy">
+                    <img ng-src="{{ imagePath + selectedScreen.filename }}" alt="" class="img-responsive"/>
+                </div>
             </div>
         </div>
     </div>
@@ -53,6 +70,7 @@
 <script src="../bower_components/lodash/dist/lodash.js"></script>
 <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 <script src="../bower_components/jquery-ui/jquery-ui.min.js"></script>
+<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 <script src="app.js"></script>
 <script src="controller.js"></script>
