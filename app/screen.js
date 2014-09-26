@@ -22,14 +22,14 @@ angular.module('orb').service('Screen', function (Project) {
           filename: file.name
         }
         screenList[UID] = screen;
-        saveToLocalStorage();
+        saveTosessionStorage();
         console.table(screenList);
       }
     });
   }
 
-  function saveToLocalStorage() {
-    localStorage.Screens = JSON.stringify(screenList);
+  function saveTosessionStorage() {
+    sessionStorage.Screens = JSON.stringify(screenList);
   }
 
   function getScreensFileList() {
@@ -61,12 +61,12 @@ angular.module('orb').service('Screen', function (Project) {
     _.each(detail, function (val, key) {
       screenList[id][key] = val;
     });
-    saveToLocalStorage();
+    saveTosessionStorage();
   }
 
   function list() {
-    if (_.isEmpty(screenList) && typeof localStorage.Screens !== 'undefined') {
-      screenList = JSON.parse(localStorage.Screens);
+    if (_.isEmpty(screenList) && typeof sessionStorage.Screens !== 'undefined') {
+      screenList = JSON.parse(sessionStorage.Screens);
     }
     var screens = _.map(screenList, function (screen) {
       return screen;
@@ -78,7 +78,7 @@ angular.module('orb').service('Screen', function (Project) {
     console.log(Project.info().folderPath + Project.info().screensFolder + screen.name, screen.id);
     fs.unlinkSync(Project.info().folderPath + Project.info().screensFolder + screen.name);
     delete screenList[screen.id];
-    saveToLocalStorage();
+    saveTosessionStorage();
     console.table(screenList);
   }
 

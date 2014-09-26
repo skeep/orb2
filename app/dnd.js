@@ -54,10 +54,10 @@ angular.module('orb').directive('capture', function () {
   return {
     restrict: 'A',
     link: function (scope, elem) {
-      elem.bind('click', function (e) {
-        e.stopPropagation();
-        console.log(e);
-      });
+      //elem.bind('click', function (e) {
+      //  e.stopPropagation();
+      //  console.log(e);
+      //});
     }
   };
 });

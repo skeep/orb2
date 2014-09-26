@@ -2,12 +2,13 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
 
   function updateScreens(doApply) {
     doApply = typeof doApply === 'undefined' ? true : doApply;
-    if (!_.isUndefined(localStorage.Project) && !_.isUndefined(localStorage.Screens)) {
+    if (!_.isUndefined(sessionStorage.Project) && !_.isUndefined(sessionStorage.Screens)) {
       $scope.screens = Screen.list();
       $scope.imagePath = Project.info().folderPath + Project.info().screensFolder;
       if (doApply) {
         $scope.$apply();
       }
+      Project.save();
     }
   }
 
@@ -15,6 +16,7 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
     if (_.isUndefined(screen.linkingNow)) {
       delete screen.linkingNow;
     }
+    console.log(screen);
     Screen.update(id, screen);
   }
 
@@ -92,6 +94,14 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
       $scope.selectedScreen.linkingNow = true;
     } else {
       $scope.selectedScreen.linkingNow = !$scope.selectedScreen.linkingNow;
+    }
+  };
+
+  $scope.isProjectOpen = function () {
+    if (_.isUndefined(sessionStorage.Project)) {
+      return false
+    } else {
+      return true
     }
   };
 

@@ -10,13 +10,7 @@
 </head>
 <body>
 <div ng-app="orb" ng-controller="appCtrl" class="container-fluid">
-    <nav class="navbar navbar-inverse navbar-fixed-top" ng-if="screens.length <= 0">
-        <div class="container-fluid">
-            <open-folder data-button-name="New Project" data-role="new"></open-folder>
-            <open-folder data-button-name="Open Project" data-role="open"></open-folder>
-        </div>
-    </nav>
-    <nav class="navbar navbar-inverse navbar-fixed-top" ng-if="screens.length > 0">
+    <nav class="navbar navbar-inverse navbar-fixed-top" ng-if="isProjectOpen()">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12 text-right">
@@ -26,7 +20,21 @@
             </div>
         </div>
     </nav>
-    <div id="canvas">
+    <div class="landing" ng-if="!isProjectOpen()">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="text-center">
+                        <open-folder data-button-name="New Project" data-role="new"></open-folder>
+                        <open-folder data-button-name="Open Project" data-role="open"></open-folder>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="canvas"  ng-if="isProjectOpen()">
         <dnd></dnd>
         <div ng-repeat="screen in screens track by screen.id" class="screen" ng-class="getClasses(screen.id)"
              draggable
@@ -50,7 +58,7 @@
         </div>
     </div>
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"
-         id="screenLarge">
+         id="screenLarge"  ng-if="isProjectOpen()">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">

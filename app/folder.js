@@ -20,7 +20,7 @@ angular.module('orb').directive('openFolder', function (Project, Screen) {
 
       } else if (scope.role === 'open') {
         if (Project.open(folderPath)) {
-          Screen.updateList(JSON.parse(localStorage.Screens));
+          Screen.updateList(JSON.parse(sessionStorage.Screens));
           scope.$emit('Project:opened');
         }
       } else {
@@ -36,7 +36,7 @@ angular.module('orb').directive('openFolder', function (Project, Screen) {
       role: '@'
     },
     replace: true,
-    template: '<span><button ng-click="openFileBrowser()">{{ buttonName }}</button><input type="file" nwdirectory/></span>',
+    template: '<span><button ng-click="openFileBrowser()" class="btn btn-primary btn-lg">{{ buttonName }}</button><input type="file" nwdirectory/></span>',
     link: postLink
   };
 

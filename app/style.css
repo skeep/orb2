@@ -1,3 +1,6 @@
+html, body{
+    background: url("vertical_cloth.png");
+}
 #holder, #canvas {
     position: fixed;
     top: 50px;
@@ -13,7 +16,6 @@
 #canvas {
     overflow: auto;
     position: absolute;
-    background: url("vertical_cloth.png");
     z-index: -100;
 }
 

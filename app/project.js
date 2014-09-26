@@ -8,8 +8,8 @@ angular.module('orb').service('Project', function () {
     screensFolder: 'screens/'
   };
 
-  if (!_.isUndefined(localStorage.Project)) {
-    Project = JSON.parse(localStorage.Project);
+  if (!_.isUndefined(sessionStorage.Project)) {
+    Project = JSON.parse(sessionStorage.Project);
   }
 
   function create(folderPath) {
@@ -23,8 +23,9 @@ angular.module('orb').service('Project', function () {
       }
       fs.mkdirSync(folderPath + 'screens');
       fs.writeFileSync(folderPath + '.projfile', '{}');
-      localStorage.Project = JSON.stringify(Project);
-      localStorage.Screens = JSON.stringify({});
+      sessionStorage.Project = JSON.stringify(Project);
+      sessionStorage.Screens = JSON.stringify({});
+      save();
       return true;
       console.log('new project created');
     } else {
@@ -35,15 +36,15 @@ angular.module('orb').service('Project', function () {
 
   function open(folderPath) {
     console.log('open project from  = ' + folderPath);
-    localStorage.clear();
+    sessionStorage.clear();
     var folderContent = fs.readdirSync(folderPath);
     if (_.contains(folderContent, '.projfile') && _.contains(folderContent, 'screens')) {
       var projfile = fs.readFileSync(folderPath + '.projfile', {
         encoding: 'utf8'
       });
       projfile = JSON.parse(projfile);
-      localStorage.Project = projfile.Project;
-      localStorage.Screens = projfile.Screens;
+      sessionStorage.Project = projfile.Project;
+      sessionStorage.Screens = projfile.Screens;
       console.log(Project);
       return true;
     } else {
@@ -54,14 +55,15 @@ angular.module('orb').service('Project', function () {
 
   function close(folderPath) {
     //save everything , do all cleanups, will think later
-    localStorage.clear();
+    sessionStorage.clear();
   }
 
   function save() {
     var projfileContent = {
-      Project: localStorage.Project,
-      Screens: localStorage.Screens
+      Project: sessionStorage.Project,
+      Screens: sessionStorage.Screens
     };
+    console.log(projfileContent);
     fs.writeFileSync(Project.folderPath + '.projfile', JSON.stringify(projfileContent));
   }
 
@@ -71,8 +73,8 @@ angular.module('orb').service('Project', function () {
     open: open,
     close: close,
     info: function(){
-      if (!_.isUndefined(localStorage.Project)) {
-        Project = JSON.parse(localStorage.Project);
+      if (!_.isUndefined(sessionStorage.Project)) {
+        Project = JSON.parse(sessionStorage.Project);
       }
       return Project;
     },
