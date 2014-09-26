@@ -75,8 +75,7 @@ angular.module('orb').service('Screen', function (Project) {
   }
 
   function remove(screen) {
-    console.log(Project.info().folderPath + Project.info().screensFolder + screen.name, screen.id);
-    fs.unlinkSync(Project.info().folderPath + Project.info().screensFolder + screen.name);
+    fs.unlinkSync(Project.info().folderPath + Project.info().screensFolder + screen.filename);
     delete screenList[screen.id];
     saveTosessionStorage();
     console.table(screenList);

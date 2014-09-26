@@ -13,7 +13,7 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
   }
 
   function update(id, screen) {
-    if (_.isUndefined(screen.linkingNow)) {
+    if (!_.isUndefined(screen.linkingNow)) {
       delete screen.linkingNow;
     }
     console.log(screen);
@@ -23,6 +23,7 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
   $scope.screens = Screen.list();
   $scope.imagePath = Project.info().folderPath + Project.info().screensFolder;
   $scope.selectedScreen = {};
+  $scope.Project = Project.info();
 
   $scope.getClasses = function (screenID) {
 
@@ -41,7 +42,6 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
       } else {
         classes.push('accepting-link');
       }
-
     }
 
     return classes;
@@ -123,9 +123,9 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
   };
   $scope.saveProject = function () {
     Project.save();
-  }
+  };
   $scope.closeProject = function () {
     Project.close();
     updateScreens();
-  }
+  };
 });

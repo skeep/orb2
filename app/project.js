@@ -73,10 +73,11 @@ angular.module('orb').service('Project', function () {
     open: open,
     close: close,
     info: function(){
+      var p;
       if (!_.isUndefined(sessionStorage.Project)) {
-        Project = JSON.parse(sessionStorage.Project);
+        p = JSON.parse(sessionStorage.Project);
       }
-      return Project;
+      return p;
     },
     save: save
   }

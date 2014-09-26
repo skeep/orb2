@@ -12,11 +12,14 @@
 <div ng-app="orb" ng-controller="appCtrl" class="container-fluid">
     <nav class="navbar navbar-inverse navbar-fixed-top" ng-if="isProjectOpen()">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12 text-right">
-                    <button ng-click="saveProject()" class="btn btn-primary btn-xs navbar-btn">Save</button>
-                    <button ng-click="closeProject()" class="btn btn-danger btn-xs navbar-btn">Close</button>
-                </div>
+            <div class="navbar-header">
+                <span class="navbar-brand">
+                    {{ Project.name }}
+                </span>
+            </div>
+            <div class="nav navbar-nav navbar-right">
+                <button ng-click="saveProject()" class="btn btn-primary btn-xs navbar-btn">Save</button>
+                <button ng-click="closeProject()" class="btn btn-danger btn-xs navbar-btn">Close</button>
             </div>
         </div>
     </nav>
@@ -34,7 +37,8 @@
         </div>
     </div>
 
-    <div id="canvas"  ng-if="isProjectOpen()">
+    <div id="canvas" ng-if="isProjectOpen()">
+        <p style="z-index: 10000; color: white;">{{ selectedScreen }}</p>
         <dnd></dnd>
         <div ng-repeat="screen in screens track by screen.id" class="screen" ng-class="getClasses(screen.id)"
              draggable
@@ -52,13 +56,14 @@
                                ng-change="changeName(screen)">
                     </div>
                 </form>
-                <button ng-click="removeScreen(screen)" class="btn btn-xs btn-danger">delete</button>
-                <button class="btn btn-xs btn-primary" data-toggle="button" ng-click="initLinking(screen)">link</button>
+                <button class="btn btn-xs btn-primary" data-toggle="button" ng-click="initLinking(screen)"><i class="glyphicon glyphicon-link
+glyphicon "></i> Start linking ...</button>
+                <button ng-click="removeScreen(screen)" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-remove"></i> Delete</button>
             </div>
         </div>
     </div>
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"
-         id="screenLarge"  ng-if="isProjectOpen()">
+         id="screenLarge" ng-if="isProjectOpen()">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
