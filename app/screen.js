@@ -81,7 +81,7 @@ angular.module('orb').service('Screen', function (Project) {
     console.table(screenList);
   }
 
-  function get(id){
+  function get(id) {
     return screenList[id];
   }
 
@@ -89,7 +89,7 @@ angular.module('orb').service('Screen', function (Project) {
     add: add,
     remove: remove,
     list: list,
-    get : get,
+    get: get,
     getAll: function () {
       return screenList;
     },

@@ -1,4 +1,4 @@
-angular.module('orb').controller('appCtrl', function ($scope, $document, Screen, Project) {
+angular.module('orb').controller('appCtrl', function ($scope, $document, Screen, Project, Link) {
 
   function updateScreens(doApply) {
     doApply = typeof doApply === 'undefined' ? true : doApply;
@@ -75,17 +75,18 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
   };
 
   $scope.selectScreen = function (screen) {
-    if (!$scope.selectedScreen.linkingNow) { //pick to just select the screen
+    if (_.isUndefined($scope.linking)) { //pick to just select the screen
       $scope.selectedScreen = screen;
     } else {
+      Link.add($scope.selectedScreen.id, screen.id);
       //link the screen
-      if (_.isUndefined($scope.selectedScreen.target)) {
-        $scope.selectedScreen.target = [];
-        $scope.selectedScreen.target.push(screen.id);
-      } else {
-        $scope.selectedScreen.target.push(screen.id);
-      }
-      update($scope.selectedScreen.id, $scope.selectedScreen);
+      //if (_.isUndefined($scope.selectedScreen.target)) {
+      //  $scope.selectedScreen.target = [];
+      //  $scope.selectedScreen.target.push(screen.id);
+      //} else {
+      //  $scope.selectedScreen.target.push(screen.id);
+      //}
+      //update($scope.selectedScreen.id, $scope.selectedScreen);
     }
   };
 

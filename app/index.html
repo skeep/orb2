@@ -42,9 +42,9 @@
         <dnd></dnd>
         <div ng-repeat="screen in screens track by screen.id" class="screen" ng-class="getClasses(screen.id)"
              draggable
-             data-screen-id="screen.id" ng-style="getStyle(screen.id)" ng-click="selectScreen(screen)"
+             data-screen-id="screen.id" ng-style="getStyle(screen.id)"
              ng-dblclick="openScreen(screen)">
-            <div class="image">
+            <div class="image" ng-click="selectScreen(screen)">
                 <img ng-src="{{ imagePath + screen.filename }}" alt="" class="screen"/>
             </div>
             <span class="name">{{ screen.name }}</span>
@@ -57,7 +57,7 @@
                     </div>
                 </form>
                 <button class="btn btn-xs btn-primary" data-toggle="button" ng-click="initLinking(screen)"><i class="glyphicon glyphicon-link
-glyphicon "></i>{{ getLinkButtonText(screen) }}
+glyphicon"></i>{{ getLinkButtonText(screen) }}
                 </button>
                 <button ng-click="removeScreen(screen)" class="btn btn-xs btn-danger"><i
                         class="glyphicon glyphicon-remove"></i> Delete
@@ -96,6 +96,7 @@ glyphicon "></i>{{ getLinkButtonText(screen) }}
 <script src="folder.js"></script>
 <script src="project.js"></script>
 <script src="draggable.js"></script>
+<script src="link.js"></script>
 
 
 </body>
