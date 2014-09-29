@@ -20,10 +20,14 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
     Screen.update(id, screen);
   }
 
-  $scope.screens = Screen.list();
-  $scope.imagePath = Project.info().folderPath + Project.info().screensFolder;
-  $scope.selectedScreen = {};
-  $scope.Project = Project.info();
+  $scope.initProject = function () {
+    if ($scope.isProjectOpen()) {
+      $scope.screens = Screen.list();
+      $scope.imagePath = Project.info().folderPath + Project.info().screensFolder;
+      $scope.selectedScreen = {};
+      $scope.Project = Project.info();
+    }
+  };
 
   $scope.getClasses = function (screenID) {
 
@@ -36,8 +40,8 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
       classes.push('just-dropped');
     }
 
-    if ($scope.selectedScreen.linkingNow) {
-      if (screenID === $scope.selectedScreen.id) {
+    if (!_.isUndefined($scope.linking)) {
+      if (screenID === $scope.linking) {
         classes.push('linking-now');
       } else {
         classes.push('accepting-link');
@@ -90,10 +94,19 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
   };
 
   $scope.initLinking = function (screen) {
-    if (_.isUndefined($scope.selectedScreen.linkingNow)) {
-      $scope.selectedScreen.linkingNow = true;
+    if (_.isUndefined($scope.linking)) {
+      $scope.linking = screen.id;
     } else {
-      $scope.selectedScreen.linkingNow = !$scope.selectedScreen.linkingNow;
+      $scope.linking = undefined;
+    }
+
+  };
+
+  $scope.getLinkButtonText = function (screen) {
+    if (screen.id === $scope.linking) {
+      return 'Stop linking ...';
+    } else {
+      return 'Start linking';
     }
   };
 
@@ -110,6 +123,7 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
   });
   $scope.$on('Project:opened', function () {
     updateScreens();
+    $scope.initProject();
   });
   $scope.$on('Project:created', function () {
     updateScreens();

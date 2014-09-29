@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-<div ng-app="orb" ng-controller="appCtrl" class="container-fluid">
+<div ng-app="orb" ng-controller="appCtrl" class="container-fluid" ng-init="initProject()">
     <nav class="navbar navbar-inverse navbar-fixed-top" ng-if="isProjectOpen()">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -38,7 +38,7 @@
     </div>
 
     <div id="canvas" ng-if="isProjectOpen()">
-        <p style="z-index: 10000; color: white;">{{ selectedScreen }}</p>
+        <p style="z-index: 10000; color: white;">{{ linking }}</p>
         <dnd></dnd>
         <div ng-repeat="screen in screens track by screen.id" class="screen" ng-class="getClasses(screen.id)"
              draggable
@@ -57,8 +57,11 @@
                     </div>
                 </form>
                 <button class="btn btn-xs btn-primary" data-toggle="button" ng-click="initLinking(screen)"><i class="glyphicon glyphicon-link
-glyphicon "></i> Start linking ...</button>
-                <button ng-click="removeScreen(screen)" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-remove"></i> Delete</button>
+glyphicon "></i>{{ getLinkButtonText(screen) }}
+                </button>
+                <button ng-click="removeScreen(screen)" class="btn btn-xs btn-danger"><i
+                        class="glyphicon glyphicon-remove"></i> Delete
+                </button>
             </div>
         </div>
     </div>
