@@ -74,8 +74,9 @@ glyphicon"></i>{{ getLinkButtonText(screen) }}
                             aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title" id="myModalLabel">{{ selectedScreen.name }}</h4>
                 </div>
-                <div class="modal-boy">
+                <div class="modal-body">
                     <img ng-src="{{ imagePath + selectedScreen.filename }}" alt="" class="img-responsive"/>
+                    <div class="link" ng-repeat="link in links" ng-style="getLinkStyle(link)"></div>
                 </div>
             </div>
         </div>

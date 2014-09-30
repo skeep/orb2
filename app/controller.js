@@ -13,10 +13,6 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
   }
 
   function update(id, screen) {
-    if (!_.isUndefined(screen.linkingNow)) {
-      delete screen.linkingNow;
-    }
-    console.log(screen);
     Screen.update(id, screen);
   }
 
@@ -33,9 +29,12 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
 
     var classes = [];
 
-    if (screenID === $scope.selectedScreen.id) {
-      classes.push('selected');
+    if (!_.isUndefined($scope.selectedScreen)) {
+      if (screenID === $scope.selectedScreen.id) {
+        classes.push('selected');
+      }
     }
+
     else {
       classes.push('just-dropped');
     }
@@ -65,6 +64,15 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
     }
   };
 
+  $scope.getLinkStyle = function (link) {
+    return {
+      top: link.top + 'px',
+      left: link.left + 'px',
+      width: link.width + 'px',
+      height: link.height + 'px'
+    }
+  };
+
   $scope.removeScreen = function (screen) {
     Screen.remove(screen);
     updateScreens(false);
@@ -77,21 +85,16 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
   $scope.selectScreen = function (screen) {
     if (_.isUndefined($scope.linking)) { //pick to just select the screen
       $scope.selectedScreen = screen;
+
     } else {
       Link.add($scope.selectedScreen.id, screen.id);
-      //link the screen
-      //if (_.isUndefined($scope.selectedScreen.target)) {
-      //  $scope.selectedScreen.target = [];
-      //  $scope.selectedScreen.target.push(screen.id);
-      //} else {
-      //  $scope.selectedScreen.target.push(screen.id);
-      //}
-      //update($scope.selectedScreen.id, $scope.selectedScreen);
     }
   };
 
   $scope.openScreen = function (screen) {
     $('#screenLarge').modal();
+    $scope.links = [];
+    $scope.links = Link.get(screen.id);
   };
 
   $scope.initLinking = function (screen) {
@@ -143,4 +146,5 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
     Project.close();
     updateScreens();
   };
+
 });
