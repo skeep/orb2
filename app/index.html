@@ -78,7 +78,10 @@ glyphicon"></i>{{ getLinkButtonText(screen) }}
                 </div>
                 <div class="modal-body">
                     <img ng-src="{{ imagePath + selectedScreen.filename }}" alt="" class="img-responsive"/>
-                    <div class="link" ng-repeat="link in links" ng-style="getLinkStyle(link)" draggable data-draggable-id="link.id" data-draggable-type="link"></div>
+
+                    <div class="link" ng-repeat="link in links" ng-style="getLinkStyle(link)" draggable
+                         data-draggable-id="link.id" data-draggable-type="link">{{ link.id }}
+                    </div>
                 </div>
             </div>
         </div>
