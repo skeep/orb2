@@ -59,6 +59,9 @@ angular.module('orb').service('Screen', function (Project) {
 
   function update(id, detail) {
     _.each(detail, function (val, key) {
+      if (id === 'top') {
+        val = val - 50; //reduce by 50 to adjust top menubar
+      }
       screenList[id][key] = val;
     });
     saveTosessionStorage();
@@ -97,5 +100,6 @@ angular.module('orb').service('Screen', function (Project) {
       screenList = screens;
     },
     update: update
-  }
+  };
+
 });

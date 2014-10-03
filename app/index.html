@@ -42,7 +42,9 @@
         <dnd></dnd>
         <div ng-repeat="screen in screens track by screen.id" class="screen" ng-class="getClasses(screen.id)"
              draggable
-             data-screen-id="screen.id" ng-style="getStyle(screen.id)"
+             data-draggable-id="screen.id"
+             data-draggable-type="screen"
+             ng-style="getStyle(screen.id)"
              ng-dblclick="openScreen(screen)">
             <div class="image" ng-click="selectScreen(screen)">
                 <img ng-src="{{ imagePath + screen.filename }}" alt="" class="screen"/>
@@ -76,7 +78,7 @@ glyphicon"></i>{{ getLinkButtonText(screen) }}
                 </div>
                 <div class="modal-body">
                     <img ng-src="{{ imagePath + selectedScreen.filename }}" alt="" class="img-responsive"/>
-                    <div class="link" ng-repeat="link in links" ng-style="getLinkStyle(link)"></div>
+                    <div class="link" ng-repeat="link in links" ng-style="getLinkStyle(link)" draggable data-draggable-id="link.id" data-draggable-type="link"></div>
                 </div>
             </div>
         </div>

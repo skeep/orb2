@@ -8,7 +8,6 @@ angular.module('orb').service('Link', function () {
     linkList = JSON.parse(sessionStorage.Links);
   }
 
-
   function saveTosessionStorage() {
     sessionStorage.Links = JSON.stringify(linkList);
   }
@@ -31,10 +30,11 @@ angular.module('orb').service('Link', function () {
   }
 
   function add(source, destination) {
-    console.log(source, destination);
-
     if (!linkExists(source, destination)) {
+      var ID = genUID();
+
       var link = {
+        id: ID,
         source: [],
         destination: '',
         top: 0,
@@ -45,10 +45,15 @@ angular.module('orb').service('Link', function () {
       link.destination = destination;
       link.source.push(source);
 
-      var ID = genUID();
-
       linkList[ID] = link;
     }
+    saveTosessionStorage();
+  }
+
+  function update(id, detail) {
+    _.each(detail, function (val, key) {
+      linkList[id][key] = val;
+    });
     saveTosessionStorage();
   }
 
@@ -61,6 +66,8 @@ angular.module('orb').service('Link', function () {
 
   return {
     add: add,
-    get: get
+    get: get,
+    update: update
   }
+
 });
