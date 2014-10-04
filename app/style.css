@@ -15,7 +15,7 @@ html, body {
 }
 
 #canvas {
-    overflow: auto;
+    overflow: scroll;
     position: absolute;
     z-index: -100;
 }
@@ -36,14 +36,22 @@ html, body {
     overflow: hidden;
     border-radius: 3px;
     box-sizing: border-box;
+    opacity: .7;
 }
 
 .screen:hover .image {
     box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.30);
+    opacity: .9;
 }
 
 .screen.is-link .image {
     box-shadow: 0 0 0 3px rgba(0, 255, 0, 0.50);
+    opacity: 1;
+}
+
+.screen.selected .image {
+    box-shadow: 0 0 0 3px rgba(255, 200, 34, 0.90);
+    opacity: 1;
 }
 
 .screen .name {
@@ -91,10 +99,6 @@ html, body {
     position: absolute;
     top: 5px;
     left: -10px;
-}
-
-.screen.selected .image {
-    box-shadow: 0 0 0 3px rgba(255, 200, 34, 0.90);
 }
 
 .image img {

@@ -38,7 +38,6 @@
     </div>
 
     <div id="canvas" ng-if="isProjectOpen()">
-        <p style="z-index: 10000; color: white;">{{ linking }}</p>
         <dnd></dnd>
         <div ng-repeat="screen in screens track by screen.id" class="screen" ng-class="getClasses(screen.id)"
              draggable
