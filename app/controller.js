@@ -86,7 +86,12 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
   $scope.selectScreen = function (screen) {
     if (_.isUndefined($scope.linking)) { //pick to just select the screen
       $scope.selectedScreen = screen;
-
+      var links = Link.get(screen.id);
+      var linkedScreens = [];
+      _.each(links, function (l) {
+        linkedScreens.push(Screen.get(l.destination));
+      });
+      drawConnectors(screen, linkedScreens);
     } else {
       Link.add($scope.selectedScreen.id, screen.id);
     }
@@ -147,5 +152,19 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
     Project.close();
     updateScreens();
   };
+
+  function drawConnectors(source, destinations) {
+    var s = Snap("#surface");
+    s.clear();
+    _.each(destinations, function (d) {
+      var line = s.line(source.left + 50, source.top + 50, d.left + 50, d.top + 50);
+      line.attr({
+        fill: "#bada55",
+        stroke: "#fff",
+        strokeWidth: 5
+      });
+    });
+
+  }
 
 });

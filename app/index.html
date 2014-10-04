@@ -39,6 +39,7 @@
 
     <div id="canvas" ng-if="isProjectOpen()">
         <dnd></dnd>
+        <svg id="surface"></svg>
         <div ng-repeat="screen in screens track by screen.id" class="screen" ng-class="getClasses(screen.id)"
              draggable
              data-draggable-id="screen.id"
@@ -93,6 +94,7 @@ glyphicon"></i>{{ getLinkButtonText(screen) }}
 <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 <script src="../bower_components/jquery-ui/jquery-ui.min.js"></script>
 <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../bower_components/snap.svg/dist/snap.svg-min.js"></script>
 
 <script src="app.js"></script>
 <script src="controller.js"></script>
