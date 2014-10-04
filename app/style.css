@@ -38,6 +38,14 @@ html, body {
     box-sizing: border-box;
 }
 
+.screen:hover .image {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.30);
+}
+
+.screen.is-link .image {
+    box-shadow: 0 0 0 3px rgba(0, 255, 0, 0.50);
+}
+
 .screen .name {
     color: white;
     padding: 5px 0;

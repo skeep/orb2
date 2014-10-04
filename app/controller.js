@@ -32,9 +32,10 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
     if (!_.isUndefined($scope.selectedScreen)) {
       if (screenID === $scope.selectedScreen.id) {
         classes.push('selected');
+      } else if (Link.isLinkOfSelectedScreen(screenID, $scope.selectedScreen.id)) {
+        classes.push('is-link');
       }
     }
-
     else {
       classes.push('just-dropped');
     }

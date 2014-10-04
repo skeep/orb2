@@ -64,10 +64,15 @@ angular.module('orb').service('Link', function () {
     return links;
   }
 
+  function isLinkOfSelectedScreen(screenId, selectedScreenId) {
+    return (linkExists(selectedScreenId, screenId));
+  }
+
   return {
     add: add,
     get: get,
-    update: update
+    update: update,
+    isLinkOfSelectedScreen: isLinkOfSelectedScreen
   }
 
 });
