@@ -36,7 +36,6 @@ angular.module('orb').service('Project', function () {
   }
 
   function open(folderPath) {
-    console.log('open project from  = ' + folderPath);
     sessionStorage.clear();
     var folderContent = fs.readdirSync(folderPath);
     if (_.contains(folderContent, '.projfile') && _.contains(folderContent, 'screens')) {
@@ -47,7 +46,6 @@ angular.module('orb').service('Project', function () {
       sessionStorage.Project = JSON.stringify(projfile.Project);
       sessionStorage.Screens = JSON.stringify(projfile.Screens);
       sessionStorage.Links = JSON.stringify(projfile.Links);
-      console.log(Project);
       return true;
     } else {
       console.log('invalid project folder');
@@ -66,7 +64,6 @@ angular.module('orb').service('Project', function () {
       Screens: JSON.parse(sessionStorage.Screens),
       Links: JSON.parse(sessionStorage.Links)
     };
-    console.log(projfileContent);
     fs.writeFileSync(Project.folderPath + '.projfile', JSON.stringify(projfileContent, null, 2));
   }
 
