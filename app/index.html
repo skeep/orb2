@@ -5,6 +5,7 @@
     <title>Orb 2</title>
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="../bower_components/jquery-ui/themes/base/all.css"/>
     <!--<link rel="stylesheet" href="../bower_components/animate.css/animate.min.css"/>-->
     <link rel="stylesheet" href="style.css"/>
 </head>
@@ -80,7 +81,7 @@ glyphicon"></i>{{ getLinkButtonText(screen) }}
                     <img ng-src="{{ imagePath + selectedScreen.filename }}" alt="" class="img-responsive"/>
 
                     <div class="link" ng-repeat="link in links" ng-style="getLinkStyle(link)" draggable
-                         data-draggable-id="link.id" data-draggable-type="link">{{ link.id }}
+                         data-draggable-id="link.id" data-draggable-type="link" resizable>
                     </div>
                 </div>
             </div>
@@ -102,8 +103,9 @@ glyphicon"></i>{{ getLinkButtonText(screen) }}
 <script src="dnd.js"></script>
 <script src="folder.js"></script>
 <script src="project.js"></script>
-<script src="draggable.js"></script>
 <script src="link.js"></script>
+<script src="draggable.js"></script>
+<script src="resizable.js"></script>
 
 
 </body>
