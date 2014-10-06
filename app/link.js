@@ -50,6 +50,13 @@ angular.module('orb').service('Link', function () {
     saveTosessionStorage();
   }
 
+  function remove(id, source) {
+    var removedLink = _.remove(linkList[id].source, function (link) {
+      return link === source;
+    });
+    saveTosessionStorage();
+  }
+
   function update(id, detail) {
     _.each(detail, function (val, key) {
       linkList[id][key] = val;
@@ -71,6 +78,7 @@ angular.module('orb').service('Link', function () {
   return {
     add: add,
     get: get,
+    remove: remove,
     update: update,
     isLinkOfSelectedScreen: isLinkOfSelectedScreen
   }

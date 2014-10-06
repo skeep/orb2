@@ -128,6 +128,11 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
     }
   };
 
+  $scope.removeLink = function (id, source) {
+    Link.remove(id, source);
+    $scope.links = Link.get(source);
+  };
+
   $scope.$on('Image:dropped', function () {
     updateScreens();
   });

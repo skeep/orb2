@@ -19,6 +19,7 @@
                 </span>
             </div>
             <div class="nav navbar-nav navbar-right">
+                <button ng-click="exportProject()" class="btn btn-primary btn-xs navbar-btn">Export</button>
                 <button ng-click="saveProject()" class="btn btn-primary btn-xs navbar-btn">Save</button>
                 <button ng-click="closeProject()" class="btn btn-danger btn-xs navbar-btn">Close</button>
             </div>
@@ -82,6 +83,9 @@ glyphicon"></i>{{ getLinkButtonText(screen) }}
 
                     <div class="link" ng-repeat="link in links" ng-style="getLinkStyle(link)" draggable
                          data-draggable-id="link.id" data-draggable-type="link" resizable>
+                        <button class="btn btn-danger btn-xs" ng-click="removeLink(link.id, selectedScreen.id)"
+                                style="position: relative; top: -11px; left: -11px"><i
+                                class="glyphicon glyphicon-remove"></i></button>
                     </div>
                 </div>
             </div>
