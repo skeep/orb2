@@ -133,6 +133,10 @@ angular.module('orb').controller('appCtrl', function ($scope, $document, Screen,
     $scope.links = Link.get(source);
   };
 
+  $scope.getScreenDetails = function (screenId) {
+    return Screen.get(screenId);
+  };
+
   $scope.$on('Image:dropped', function () {
     updateScreens();
   });

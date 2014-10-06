@@ -135,4 +135,19 @@ input[type="file"] {
     top: 0;
     left: 0;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    cursor: move;
+}
+
+.link .screen-name, .link .btn-danger {
+    display: none;
+}
+
+.link:hover .screen-name, .link:hover .btn-danger {
+    display: inline-block;
+}
+
+.link .screen-name {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
 }

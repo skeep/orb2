@@ -86,6 +86,7 @@ glyphicon"></i>{{ getLinkButtonText(screen) }}
                         <button class="btn btn-danger btn-xs" ng-click="removeLink(link.id, selectedScreen.id)"
                                 style="position: relative; top: -11px; left: -11px"><i
                                 class="glyphicon glyphicon-remove"></i></button>
+                        <span class="label label-success screen-name">{{ getScreenDetails(link.destination).name }}</span>
                     </div>
                 </div>
             </div>
